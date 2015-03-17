@@ -1,0 +1,34 @@
+{
+  "name": "points",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Gulpfile.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AlexMost/points.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AlexMost/points/issues"
+  },
+  "homepage": "https://github.com/AlexMost/points",
+  "devDependencies": {
+    "coffee-script": "^1.9.1",
+    "gulp": "^3.8.11",
+    "gulp-coffee": "^2.3.1",
+    "gulp-coffeelint": "^0.4.0",
+    "gulp-nodeunit": "0.0.5",
+    "gulp-util": "^3.0.4"
+  },
+  "dependencies": {
+    "immutable": "^3.6.4",
+    "rx": "^2.4.3"
+  }
+}
