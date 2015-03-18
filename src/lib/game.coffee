@@ -2,14 +2,16 @@ Immutable = require 'immutable'
 Rx = require 'rx'
 Map = Immutable.Map
 {GAME_CYCLE, GameState, POINT_STATE} = require './game_state'
+
 DEFAULT_WIDTH = 20
 DEFAULT_HEIGHT = 20
+
 
 initPointsMap = (width, height) ->
     rawMap = {}
     for i in [0...width]
         rawMap[i] = {}
-        for j in [0..height]
+        for j in [0...height]
             rawMap[i][j] = POINT_STATE.NOT_SET
     Immutable.fromJS rawMap
 
@@ -32,4 +34,4 @@ createGame = (initialData) ->
     getUpdateStream: -> updateStream
 
 
-module.exports = {createGame}
+module.exports = {createGame, initPointsMap}
