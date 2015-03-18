@@ -11,7 +11,8 @@ initPointsMap = (width, height) ->
     Immutable.fromJS rawMap
 
 
-addPoint = (x, y, gameState) ->
+addPoint = (x, y, point, gameState) ->
+    gameState.updateIn(["pointsMap", "#{x}", "#{y}"], -> point)
 
 
-module.exports = {initPointsMap}
+module.exports = {initPointsMap, addPoint}

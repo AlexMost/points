@@ -26,6 +26,7 @@ createGame = (initialData) ->
     .share()
 
     getUpdateStream: -> updateStream
+    getGameState: -> gameState
 
 
 module.exports = {createGame, initPointsMap}

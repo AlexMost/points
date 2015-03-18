@@ -22,6 +22,11 @@ exports.test_should_create_game = (test) ->
             test.equal(
                 gameState.get("height"), 30,
                 "Must set height from init options")
+
+            test.ok(
+                newGameInstance.getGameState() == gameState,
+                "getGameState must return the same gameState")
+            
             test.done()
         -> test.ok(false, "must not fail")
     )
