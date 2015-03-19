@@ -1,6 +1,7 @@
 {createGame} = require '../src/game'
 {POINT_STATE, GAME_CYCLE} = require '../src/lib/game_state'
 
+
 exports.test_should_create_game = (test) ->
     newGameInstance = createGame {width: 30, height: 30}
     updateStream = newGameInstance.getUpdateStream()
@@ -26,11 +27,10 @@ exports.test_should_create_game = (test) ->
             test.ok(
                 newGameInstance.getGameState() == gameState,
                 "getGameState must return the same gameState")
-            
+
             test.done()
         -> test.ok(false, "must not fail")
     )
-
 
 
 exports.test_should_init_game_field = (test) ->
