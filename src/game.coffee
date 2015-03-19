@@ -4,6 +4,7 @@ Rx = require 'rx'
 {initPointsMap} = require './lib/point'
 {addPointAction} = require './actions/add_point'
 
+
 Map = Immutable.Map
 DEFAULT_WIDTH = 20
 DEFAULT_HEIGHT = 20

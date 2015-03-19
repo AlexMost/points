@@ -20,7 +20,7 @@ exports.test_must_add_point = (test) ->
             player: PLAYER.FIRST
             point: POINT_STATE.POINT_USER1
             gameState}]]
-        [[210, {action: "addPoint", gameState:addedGameState}]]
+        [[210, {action: "addPoint", gameState: addedGameState}]]
         (isTrue) ->
             unless isTrue
                 console.log arguments[1][0].value
