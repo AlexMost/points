@@ -45,11 +45,13 @@ exports.test_ticks_equal_objects = (test) ->
 
 exports.test_assert_rx_actions = (test) ->
     actionSource = (stream) -> stream.map (x) -> x * 2
+
     assertRxActions(
         actionSource,
         [[210, 1], [220, 2]]
         [[210, 2], [220, 4]]
         (isEqual) ->
+            console.log arguments unless isEqual
             test.ok isEqual, "must be equal sequences"
             test.done()
     )

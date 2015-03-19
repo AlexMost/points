@@ -1,6 +1,8 @@
-{initPointsMap, addPoint} = require '../../src/lib/point'
+{initPointsMap, addPoint, isValidPointRange, isValidPlayer
+} = require '../../src/lib/point'
 {createGame} = require '../../src/game'
-{POINT_STATE, GAME_CYCLE, POINT_STATE} = require '../../src/lib/game_state'
+{POINT_STATE, GAME_CYCLE, POINT_STATE,
+PLAYER} = require '../../src/lib/game_state'
 
 
 exports.test_init_points_map = (test) ->
@@ -22,5 +24,35 @@ exports.test_add_point = (test) ->
         newGameState.getIn(["pointsMap", "1", "1"]),
         POINT_STATE.POINT_USER1,
         "Must return new state with checked point")
+
+    test.equal(
+        newGameState.get("player"), PLAYER.SECOND,
+        "Must change player after point add")
     
+    test.done()
+
+
+exports.test_is_valid_point_range = (test) ->
+    newGameInstance = createGame {width: 2, height: 2}
+    gameState = newGameInstance.getGameState()
+    test.ok(
+        isValidPointRange(1, 1, gameState),
+        "must be valid point range")
+
+    test.ok(
+        !isValidPointRange(3, 3, gameState),
+        "must be invalid point range (out of bounds)")
+    test.ok(
+        !isValidPointRange(-1, -1, gameState),
+        "must be invalid point range (below zero coordinates)")
+
+    test.done()
+
+
+exports.test_is_valid_player = (test) ->
+    newGameInstance = createGame {width: 2, height: 2}
+    gameState = newGameInstance.getGameState()
+    test.ok(
+        isValidPlayer(PLAYER.FIRST, gameState),
+        "must be current player")
     test.done()

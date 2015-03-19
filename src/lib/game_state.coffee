@@ -10,7 +10,7 @@ GAME_CYCLE = {START_GAME, ON_AIR, END_GAME}
 
 
 [FIRST, SECOND] = [0..1]
-USER_TURN = {FIRST, SECOND}
+PLAYER = {FIRST, SECOND}
 
 
 [NOT_SET, POINT_USER1, POINT_USER2] = [0..2]
@@ -22,13 +22,13 @@ GameState = Record(
     width: 0
     height: 0
     gameCycle: GAME_CYCLE.START_GAME
-    userTurn: USER_TURN.FIRST
+    player: PLAYER.FIRST
 )
 
 
 module.exports = {
     GAME_CYCLE
-    USER_TURN
+    PLAYER
     GameState
     POINT_STATE
 }
