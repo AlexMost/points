@@ -1,5 +1,5 @@
 Immutable = require 'immutable'
-{POINT_STATE, PLAYER} = require './game_state'
+{POINT_STATE, PLAYER, GAME_CYCLE} = require './game_state'
 
 
 initPointsMap = (width, height) ->
@@ -33,5 +33,13 @@ isValidPlayer = (player, gameState) ->
     player is currentPlayer
 
 
+isValidGameCycleForAddPoint = (gameState) ->
+    GAME_CYCLE.ON_AIR == gameState.get("gameCycle")
+
+
 module.exports = {
-    initPointsMap, addPoint, isValidPointRange, isValidPlayer}
+    initPointsMap,
+    addPoint,
+    isValidPointRange,
+    isValidPlayer,
+    isValidGameCycleForAddPoint}

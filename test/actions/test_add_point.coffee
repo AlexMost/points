@@ -1,13 +1,14 @@
 {createGame} = require '../../src/game'
 {addPointAction} = require '../../src/actions/add_point'
 {addPoint} = require '../../src/lib/point'
-{POINT_STATE, PLAYER} = require '../../src/lib/game_state'
+{POINT_STATE, PLAYER, GAME_CYCLE} = require '../../src/lib/game_state'
 {assertRxActions} = require '../../src/rx_test_util'
 
 
 exports.test_must_add_point = (test) ->
     gameInstance = createGame {width: 5, height: 5}
-    gameState = gameInstance.getGameState()
+    gameState = gameInstance.getGameState().set(
+        "gameCycle", GAME_CYCLE.ON_AIR)
 
     addedGameState = addPoint 1, 1, POINT_STATE.POINT_USER1, gameState
 
