@@ -37,9 +37,16 @@ isValidGameCycleForAddPoint = (gameState) ->
     GAME_CYCLE.ON_AIR == gameState.get("gameCycle")
 
 
+isFreePoint = (x, y, gameState) ->
+    point = gameState.getIn(["pointsMap", "#{x}", "#{y}"])
+    point == POINT_STATE.NOT_SET
+
+
 module.exports = {
     initPointsMap,
     addPoint,
     isValidPointRange,
     isValidPlayer,
-    isValidGameCycleForAddPoint}
+    isValidGameCycleForAddPoint,
+    isFreePoint
+}

@@ -1,5 +1,5 @@
 {initPointsMap, addPoint, isValidPointRange,
-isValidPlayer, isValidGameCycleForAddPoint} = require '../lib/point'
+isValidPlayer, isValidGameCycleForAddPoint, isFreePoint} = require '../lib/point'
 
 
 exports.addPointAction = (stream) ->
@@ -8,7 +8,8 @@ exports.addPointAction = (stream) ->
         action is "addPoint" and
         isValidPointRange(x, y, gameState) and
         isValidPlayer(player, gameState) and
-        isValidGameCycleForAddPoint gameState)
+        isValidGameCycleForAddPoint(gameState) and
+        isFreePoint(x, y, gameState))
     .map(({x, y, point, gameState, action}) ->
         gameState = addPoint(x, y ,point, gameState)
         {gameState, action}

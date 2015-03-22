@@ -1,5 +1,5 @@
 {initPointsMap, addPoint, isValidPointRange, isValidPlayer
-} = require '../../src/lib/point'
+isFreePoint} = require '../../src/lib/point'
 {createGame} = require '../../src/game'
 {POINT_STATE, GAME_CYCLE, POINT_STATE,
 PLAYER} = require '../../src/lib/game_state'
@@ -56,3 +56,13 @@ exports.test_is_valid_player = (test) ->
         isValidPlayer(PLAYER.FIRST, gameState),
         "must be current player")
     test.done()
+
+exports.test_is_free_point = (test) ->
+    newGameInstance = createGame {width: 2, height: 2}
+    gameState = newGameInstance.getGameState()
+    test.ok(isFreePoint(1, 1, gameState), "must be free point")
+
+    newGameState = addPoint(1, 1, POINT_STATE.POINT_USER1, gameState)
+    test.ok(!isFreePoint(1, 1, newGameState), "must be not free point")
+    test.done()
+
