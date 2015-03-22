@@ -11,14 +11,14 @@ initPointsMap = (width, height) ->
     Immutable.fromJS rawMap
 
 
-addPoint = (x, y, point, gameState) ->
+addPoint = (x, y, player, gameState) ->
     newPlayer = if gameState.get("player") is PLAYER.FIRST
         PLAYER.SECOND
     else
         PLAYER.FIRST
 
     gameState
-    .updateIn(["pointsMap", "#{x}", "#{y}"], -> point)
+    .updateIn(["pointsMap", "#{x}", "#{y}"], -> player)
     .set("player", newPlayer)
 
 

@@ -1,10 +1,10 @@
 {createGame} = require '../src/game'
-{POINT_STATE, GAME_CYCLE} = require '../src/lib/game_state'
+{isFreePoint} = require '../src/lib/point'
+{POINT_STATE, GAME_CYCLE, PLAYER} = require '../src/lib/game_state'
 
 
 exports.test_should_create_game = (test) ->
     newGameInstance = createGame {width: 30, height: 30}
-    updateStream = newGameInstance.getUpdateStream()
     gameState = newGameInstance.getGameState()
 
     test.ok(gameState, "must init gameState")
@@ -31,8 +31,6 @@ exports.test_should_create_game = (test) ->
 
 exports.test_should_init_game_field = (test) ->
     newGameInstance = createGame {width: 30, height: 30}
-
-    updateStream = newGameInstance.getUpdateStream()
     gameState = newGameInstance.getGameState()
     pointsMap = gameState.get("pointsMap")
 
@@ -47,3 +45,22 @@ exports.test_should_init_game_field = (test) ->
     test.done()
 
 
+# exports.test_should_add_point = (test) ->
+#     test.expect(1)
+#     newGameInstance = createGame {width: 2, height: 2}
+#     gameState = newGameInstance.getGameState()
+#     updStream = newGameInstance.getUpdateStream()
+    
+#     updStream
+#     .filter(({action}) -> action is "addPoint")
+#     .subscribe(
+#         ({gameState}) ->
+#             test.ok(
+#                 !isFreePoint(1, 1, gameState),
+#                 "point must not be free")
+#             test.done()
+
+#         -> test.ok false, "must not fail"
+#     )
+
+#     newGameInstance.addPoint(1, 1, PLAYER.FIRST)

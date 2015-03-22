@@ -18,11 +18,11 @@ exports.test_init_points_map = (test) ->
 exports.test_add_point = (test) ->
     newGameInstance = createGame {width: 30, height: 30}
     gameState = newGameInstance.getGameState()
-    newGameState = addPoint(1, 1, POINT_STATE.POINT_USER1, gameState)
+    newGameState = addPoint(1, 1, POINT_STATE.FIRST, gameState)
 
     test.equal(
         newGameState.getIn(["pointsMap", "1", "1"]),
-        POINT_STATE.POINT_USER1,
+        POINT_STATE.FIRST,
         "Must return new state with checked point")
 
     test.equal(
@@ -57,12 +57,11 @@ exports.test_is_valid_player = (test) ->
         "must be current player")
     test.done()
 
+
 exports.test_is_free_point = (test) ->
     newGameInstance = createGame {width: 2, height: 2}
     gameState = newGameInstance.getGameState()
     test.ok(isFreePoint(1, 1, gameState), "must be free point")
-
-    newGameState = addPoint(1, 1, POINT_STATE.POINT_USER1, gameState)
+    newGameState = addPoint(1, 1, POINT_STATE.FIRST, gameState)
     test.ok(!isFreePoint(1, 1, newGameState), "must be not free point")
     test.done()
-

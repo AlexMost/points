@@ -10,7 +10,7 @@ exports.test_must_add_point = (test) ->
     gameState = gameInstance.getGameState().set(
         "gameCycle", GAME_CYCLE.ON_AIR)
 
-    addedGameState = addPoint 1, 1, POINT_STATE.POINT_USER1, gameState
+    addedGameState = addPoint 1, 1, POINT_STATE.FIRST, gameState
 
     assertRxActions(
         addPointAction
@@ -19,7 +19,7 @@ exports.test_must_add_point = (test) ->
             x:1
             y:1
             player: PLAYER.FIRST
-            point: POINT_STATE.POINT_USER1
+            point: POINT_STATE.FIRST
             gameState}]]
         [[210, {action: "addPoint", gameState: addedGameState}]]
         (isTrue) ->

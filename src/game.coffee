@@ -32,8 +32,8 @@ createGame = (initialData) ->
 
     getUpdateStream: -> updateStream
     getGameState: -> gameState
-    addPoint: (x, y, point, player) ->
-        eventStream.onNext {action: "addPoint", x, y, gameState}
+    addPoint: (x, y, player) ->
+        eventStream.onNext {action: "addPoint", x, y, gameState, player}
 
 
 module.exports = {createGame, initPointsMap}
