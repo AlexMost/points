@@ -4,7 +4,6 @@ Rx = require 'rx'
 {initPointsMap, addPoint, isValidPointRange,
 isValidPlayer, isValidGameCycleForAddPoint,
 isFreePoint} = require '../lib/point'
-l = require 'lodash'
 
 
 exports.addPointAction = (stream) ->
