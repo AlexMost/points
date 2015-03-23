@@ -86,21 +86,20 @@ exports.should_start_game = (test) ->
     newGameInstance.startGame()
 
 
-# exports.test_should_add_point = (test) ->
-#     newGameInstance = createGame {
-#         width: 2, height: 2, gameCycle: GAME_CYCLE.ON_AIR}
-#     updStream = newGameInstance.getUpdateStream()
+exports.test_should_add_point = (test) ->
+    newGameInstance = createGame {
+        width: 2, height: 2, gameCycle: GAME_CYCLE.ON_AIR}
+    updStream = newGameInstance.getUpdateStream()
 
-#     updStream
-#     .filter(({action}) -> action is "addPoint")
-#     .subscribe(
-#         ({gameState}) ->
-#             console.log gameState
-#             test.ok(
-#                 !isFreePoint(1, 1, gameState),
-#                 "point must not be free")
-#             test.done()
-#         (err) -> throw new Error(err.message)
-#     )
+    updStream
+    .filter(({action}) -> action is "addPoint")
+    .subscribe(
+        ({gameState}) ->
+            test.ok(
+                !isFreePoint(1, 1, gameState),
+                "point must not be free")
+            test.done()
+        (err) -> throw new Error(err.message)
+    )
 
-#     newGameInstance.addPoint(1, 1, PLAYER.FIRST)
+    newGameInstance.addPoint(1, 1, PLAYER.FIRST)

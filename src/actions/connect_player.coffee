@@ -6,7 +6,7 @@ Rx = require 'rx'
 exports.connectPlayer = (stream) ->
     Rx.Observable.create (observer) ->
         connectPlayerSource = stream
-        .filter(({action}) -> "connectPlayer")
+        .filter(({action}) -> action is "connectPlayer")
 
         firstConnect = connectPlayerSource
         .filter(({player}) -> player is PLAYER.FIRST)
@@ -17,5 +17,5 @@ exports.connectPlayer = (stream) ->
         .filter(({player}) -> player is PLAYER.SECOND)
         .map(({player, gameState, action}) ->
             {gameState: gameState.set("playerSecondOn", true), action})
-        
+
         Rx.Observable.merge(firstConnect, secondConnect).subscribe observer
