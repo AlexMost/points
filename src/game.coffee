@@ -1,3 +1,5 @@
+"use strict"
+
 Immutable = require 'immutable'
 Rx = require 'rx'
 {GameState} = require './lib/game_state'

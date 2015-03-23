@@ -1,3 +1,5 @@
+"use strict"
+
 Rx = require 'rx'
 onNext = Rx.ReactiveTest.onNext
 onCompleted = Rx.ReactiveTest.onCompleted

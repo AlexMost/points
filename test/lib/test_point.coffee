@@ -1,3 +1,5 @@
+"use strict"
+
 {initPointsMap, addPoint, isValidPointRange, isValidPlayer
 isFreePoint} = require '../../src/lib/point'
 {createGame} = require '../../src/game'

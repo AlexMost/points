@@ -1,3 +1,5 @@
+"use strict"
+
 {createGame} = require '../../src/game'
 {addPointAction} = require '../../src/actions/add_point'
 {addPoint} = require '../../src/lib/point'

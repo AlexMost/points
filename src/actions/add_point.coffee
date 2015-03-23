@@ -1,5 +1,8 @@
+"use strict"
+
 {initPointsMap, addPoint, isValidPointRange,
-isValidPlayer, isValidGameCycleForAddPoint, isFreePoint} = require '../lib/point'
+isValidPlayer, isValidGameCycleForAddPoint,
+isFreePoint} = require '../lib/point'
 
 
 exports.addPointAction = (stream) ->

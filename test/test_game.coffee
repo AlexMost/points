@@ -1,3 +1,5 @@
+"use strict"
+
 {createGame} = require '../src/game'
 {isFreePoint} = require '../src/lib/point'
 {POINT_STATE, GAME_CYCLE, PLAYER} = require '../src/lib/game_state'
@@ -50,7 +52,7 @@ exports.test_should_init_game_field = (test) ->
 #     newGameInstance = createGame {width: 2, height: 2}
 #     gameState = newGameInstance.getGameState()
 #     updStream = newGameInstance.getUpdateStream()
-    
+
 #     updStream
 #     .filter(({action}) -> action is "addPoint")
 #     .subscribe(

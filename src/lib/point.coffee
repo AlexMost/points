@@ -1,3 +1,5 @@
+"use strict"
+
 Immutable = require 'immutable'
 {POINT_STATE, PLAYER, GAME_CYCLE} = require './game_state'
 
