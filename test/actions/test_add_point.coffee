@@ -25,9 +25,6 @@ exports.test_must_add_point = (test) ->
             gameState}]]
         [[210, {action: "addPoint", gameState: addedGameState}]]
         (isTrue) ->
-            unless isTrue
-                console.log arguments[1][0].value
-                console.log arguments[2][0].value
             test.ok isTrue, "must add point"
             test.done()
     )

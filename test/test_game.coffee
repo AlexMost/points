@@ -47,22 +47,60 @@ exports.test_should_init_game_field = (test) ->
     test.done()
 
 
+exports.test_should_connect_player = (test) ->
+    newGameInstance = createGame {width: 2, height: 2}
+    gameState = newGameInstance.getGameState()
+    updStream = newGameInstance.getUpdateStream()
+
+    updStream
+    .filter(({action}) -> action is "connectPlayer")
+    .subscribe(
+        ({gameState}) ->
+            test.ok(
+                gameState.get("playerFirstOn"),
+                "player first must be connected")
+            test.done()
+        (err) -> throw new Error(err.message)
+    )
+
+    newGameInstance.connectPlayer(PLAYER.FIRST)
+
+
+exports.should_start_game = (test) ->
+    newGameInstance = createGame {width: 2, height: 2}
+    gameState = newGameInstance.getGameState()
+    updStream = newGameInstance.getUpdateStream()
+
+    updStream
+    .filter(({action}) -> action is "startGame")
+    .subscribe(
+        ({gameState}) ->
+            test.equal(
+                gameState.get("gameCycle"),
+                GAME_CYCLE.ON_AIR,
+                "game cycle must be on air")
+            test.done()
+        (err) -> throw new Error(err.message)
+    )
+
+    newGameInstance.startGame()
+
+
 # exports.test_should_add_point = (test) ->
-#     test.expect(1)
-#     newGameInstance = createGame {width: 2, height: 2}
-#     gameState = newGameInstance.getGameState()
+#     newGameInstance = createGame {
+#         width: 2, height: 2, gameCycle: GAME_CYCLE.ON_AIR}
 #     updStream = newGameInstance.getUpdateStream()
 
 #     updStream
 #     .filter(({action}) -> action is "addPoint")
 #     .subscribe(
 #         ({gameState}) ->
+#             console.log gameState
 #             test.ok(
 #                 !isFreePoint(1, 1, gameState),
 #                 "point must not be free")
 #             test.done()
-
-#         -> test.ok false, "must not fail"
+#         (err) -> throw new Error(err.message)
 #     )
 
 #     newGameInstance.addPoint(1, 1, PLAYER.FIRST)

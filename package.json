@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "immutable": "^3.6.4",
+    "lodash": "^3.5.0",
     "rx": "^2.4.3"
   }
 }

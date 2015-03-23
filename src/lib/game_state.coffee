@@ -24,6 +24,8 @@ GameState = Record(
     height: 0
     gameCycle: GAME_CYCLE.START_GAME
     player: PLAYER.FIRST
+    playerFirstOn: false
+    playerSecondOn: false
 )
 
 

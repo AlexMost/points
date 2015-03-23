@@ -30,7 +30,7 @@ assertRxActions = (actionSource, inputTicks, expectedTicks, cb) ->
 
     xs = scheduler.createHotObservable rxInputTicks...
     res = scheduler.startWithCreate(-> actionSource(xs))
-    
+
     ticksOk = ticksEqual(res.messages, rxExpectedTicks)
 
     cb(ticksOk, res.messages, rxExpectedTicks, inputTicks, expectedTicks)
