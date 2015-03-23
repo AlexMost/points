@@ -29,7 +29,7 @@ exports.addPointAction = (stream) ->
         
         # validation failure
         Rx.Observable
-        .merge(invalidPointRange, invalidPlayer, 
+        .merge(invalidPointRange, invalidPlayer,
             invalidGameCycleForAddPoint, notFreePoint)
         .subscribe(
             (error_data) -> observer.onError error_data

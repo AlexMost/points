@@ -15,7 +15,7 @@ gulp.task 'default', ->
         .pipe(coffeelint())
         .pipe(coffeelint.reporter())
         .pipe(coffee({bare: true}).on('error', gutil.log))
-        .pipe(gulp.dest('./lib'))
+        .pipe(gulp.dest('./build'))
 
 
 gulp.task 'test', ->
