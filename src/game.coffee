@@ -37,7 +37,6 @@ createGame = (initialData) ->
         connectPlayer(eventStream))
     .do(({gameState: newGameState}) ->
         gameState = gameState.merge newGameState)
-    .share()
 
     getUpdateStream: -> updateStream
     getGameState: -> gameState
