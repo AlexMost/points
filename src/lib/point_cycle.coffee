@@ -1,31 +1,33 @@
-getCycle = (x, y, pointsMap) ->
+getCycle = (y, x, pointsMap) ->
     # connectedPoints = getConnectedPoints(x, y, pointsMap)
 
 
-getConnectedPoints = (x, y, pointsMap) ->
-    # connectedPoints = []
+getConnectedPoints = (point, pointsMap) ->
+    connectedPoints = []
+    stack = []
+    visitedMap = {}
 
-    # stack = []
-    # stack.push [x, y]
+    stack.push point
+    visitedMap[point] = true
 
-    # while stack.length
-    #     [current_x, current_y] = stack.pop()
-    #     connectedPoints.push [current_x, current_y]
-    #     neighbors = findNeighbors current_x, current_y, pointsMap
-    #     for neighbor in neighbors
-    #         stack.push neighbor
+    [y, x] = point
+    n = pointsMap[y][x]
 
-    # connectedPoints
+    while stack.length
+        [current_y, current_x] = stack.pop()
+        connectedPoints.push [current_y, current_x]
+        neighbors = findNeighborsWithN(n, [current_y, current_x], pointsMap)
+        for neighbor in neighbors when neighbor not of visitedMap
+            stack.push neighbor
+            visitedMap[neighbor] = true
+
+    connectedPoints
 
 
-findNeighborsWithN = (n, [x, y], pointsMap) ->
-    [[x-1, y-1], [x, y-1], [x+1, y-1]
-    [x-1, y],             [x+1, y]
-    [x-1, y+1], [x, y+1], [x+1, y+1]]
-    .filter(([x, y]) -> x >= 0 and y >= 0)
-    .map(([x, y]) -> [x, y, pointsMap[y][x]])
-    .filter(([x, y, val]) -> val is n)
-    .map(([x, y]) -> [x, y])
+findNeighborsWithN = (n, [y, x], pointsMap) ->
+    [[y-1, x-1], [y, x-1], [y+1, x-1], [y-1, x],
+     [y+1, x], [y-1, x+1], [y, x+1], [y+1, x+1]]
+    .filter(([y, x]) -> pointsMap[y]?[x] is n)
 
 
 module.exports = {getCycle, getConnectedPoints, findNeighborsWithN}
