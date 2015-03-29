@@ -1,10 +1,12 @@
 "use strict"
 
 {initPointsMap, addPoint, isValidPointRange, isValidPlayer
-isFreePoint} = require '../../src/lib/point'
+isFreePoint, getPointIdx,
+getPointsCoordinates} = require '../../src/lib/point'
 {createGame} = require '../../src/game'
 {POINT_STATE, GAME_CYCLE, POINT_STATE,
 PLAYER} = require '../../src/lib/game_state'
+l = require 'lodash'
 
 
 exports.test_init_points_map = (test) ->
@@ -67,3 +69,28 @@ exports.test_is_free_point = (test) ->
     newGameState = addPoint(1, 1, POINT_STATE.FIRST, gameState)
     test.ok(!isFreePoint(1, 1, newGameState), "must be not free point")
     test.done()
+
+
+exports.test_get_point_index = (test) ->
+    points = [
+        [0, 0, 0] # 0, 1, 2
+        [0, 1, 1] # 3, 4, 5
+        [1, 0, 0] # 6, 7, 8
+    ]
+    
+    point1_index = getPointIdx(1, 1, l.size(points))
+    test.equal(point1_index, 4, "index must be 4")
+    test.done()
+
+
+exports.test_get_points_coordinates = (test) ->
+    points = [
+        [0, 0, 0] # 0, 1, 2
+        [0, 1, 1] # 3, 4, 5
+        [1, 0, 0] # 6, 7, 8
+    ]
+
+    point1_index = getPointsCoordinates(4, l.size(points))
+    test.deepEqual(point1_index, [1, 1], "coordinates must be [1, 1]")
+    test.done()
+

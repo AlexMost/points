@@ -2,13 +2,14 @@
 
 Immutable = require 'immutable'
 {POINT_STATE, PLAYER, GAME_CYCLE} = require './game_state'
+l = require 'lodash'
 
 
 initPointsMap = (width, height) ->
     rawMap = {}
     for i in [0...width]
         rawMap[i] = {}
-        for j in [0...  height]
+        for j in [0...height]
             rawMap[i][j] = POINT_STATE.NOT_SET
     Immutable.fromJS rawMap
 
@@ -44,11 +45,21 @@ isFreePoint = (x, y, gameState) ->
     point == POINT_STATE.NOT_SET
 
 
+getPointIdx = (y, x, rows_count) ->
+    y * rows_count + x
+
+
+getPointsCoordinates = (idx, rows_count) ->
+    [Math.floor(idx/rows_count), (idx % rows_count)]
+
+
 module.exports = {
     initPointsMap,
     addPoint,
     isValidPointRange,
     isValidPlayer,
     isValidGameCycleForAddPoint,
-    isFreePoint
+    isFreePoint,
+    getPointIdx,
+    getPointsCoordinates
 }
