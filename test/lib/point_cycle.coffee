@@ -1,8 +1,9 @@
 "use strict"
 
 l = require 'lodash'
-{makeGraph, getCycles, getConnectedPoints,
-findNeighborsWithN, getConnectedPointsGraph
+{
+makeGraph, getCycles, findNeighborsWithN,
+getConnectedPointsGraph, removeNeighborsCycles
 } = require '../../src/lib/point_cycle'
 
 
@@ -27,23 +28,6 @@ exports.test_find_neighbors_with_n = (test) ->
     test.done()
 
 
-exports.test_get_connected_points = (test) ->
-    points = [
-        [0, 0, 0]  # 0, 1, 2
-        [0, 1, 1]  # 3, 4, 5
-        [1, 0, 0]  # 6, 7, 8
-    ]
-
-    expectedResult = [[2, 0], [1, 1], [1, 2]]
-
-    actualResult = getConnectedPoints([2, 0], points)
-
-    test.equal(l.size(actualResult), 3, "must resolve 3 connected points")
-    test.deepEqual(
-        expectedResult, actualResult, "must resolve connected points")
-    test.done()
-
-
 exports.get_connected_points_graph = (test) ->
     points = [
         [0, 0, 0]  # 0, 1, 2
@@ -65,16 +49,53 @@ exports.get_connected_points_graph = (test) ->
     test.done()
 
 
-# exports.test_get_cycle = (test) ->
-#     points = [
-#         [0, 0, 0, 0, 1]
-#         [0, 1, 1, 1, 0]
-#         [1, 0, 0, 1, 0]
-#         [1, 0, 1, 0, 1]
-#         [0, 1, 0, 0, 0]
-#     ]
+exports.test_get_cycle = (test) ->
+    test.expect(7)
 
-#     cycles = getCycles([2, 0], points)
-#     # console.log cycles
-#     test.done()
+    graph = [
+        [1, 2], [1, 3], [1, 4], [2, 3],
+        [3, 4], [2, 6], [4, 6], [8, 7],
+        [8, 9], [9, 7]]
 
+    cycles = getCycles(graph)
+
+    expected_cycles = [
+        [3, 2, 1]
+        [4, 3, 2, 1]
+        [4, 6, 2, 1]
+        [3, 4, 6, 2, 1]
+        [4, 3, 1]
+        [6, 4, 3, 2]
+        [9, 7, 8]
+    ]
+
+    cyclesHashMap = {}
+    for cycle in cycles
+        cyclesHashMap[cycle.toString()] = null
+
+    for expected_cycle in expected_cycles
+        test.ok(
+            expected_cycle.toString() of cyclesHashMap,
+            "must resolve path #{expected_cycle}")
+
+    test.done()
+
+
+exports.test_remove_neighbor_cycles = (test) ->
+    graph =
+        6: {4: null}
+        4: {5: null, 6: null}
+        5: {4: null}
+
+    expected_result =
+        6: {}
+        4: {6: null, 5: null}
+        5: {}
+
+    actual_result = removeNeighborsCycles graph
+    
+    test.deepEqual(
+        actual_result,
+        expected_result,
+        "must remove neighbors cycles")
+    test.done()

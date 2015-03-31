@@ -3,50 +3,45 @@ l = require 'lodash'
 {getPointIdx} = require './point'
 
 
-getCycles = (point, pointsMap) ->
-    discovered = {}
-    stack = []
+getCycles = (graph) ->
+    cycles = []
+    addedCycles = {}
 
-    stack.push point
+    visited = (node, path) -> node in path
 
-    [y, x] = point
-    n = pointsMap[y][x]
+    findNewCycle = (path) ->
+        start_node = path[0]
+        next_node = null
+        sub = []
 
-    while stack.length
-        current_point = stack.pop()
-        [current_y, current_x] = current_point
+        for edge in graph
+            [node1, node2] = edge
 
-        if current_point not of discovered
-            discovered[current_point] = true
-            neighbors = findNeighborsWithN(n,
-                [current_y, current_x], pointsMap)
-            for neighbor in neighbors
-                stack.push neighbor
+            if start_node in edge
+                if node1 is start_node
+                    next_node = node2
+                else
+                    next_node = node1
 
+            if not visited(next_node, path)
+                # neighbor node not on path yet
+                sub = [next_node]
+                sub = sub.concat(path)
+                # explore extended path
+                findNewCycle(sub)
+            else if l.size(path) > 2 and next_node is path[path.length - 1]
+                # cycle found
+                pathCopy = path[..]
+                pathHash = pathCopy.sort().toString()
+                if pathHash not of addedCycles
+                    cycles.push path
+                    addedCycles[pathHash] = null
 
-###
-DFS search implementation
-###
-getConnectedPoints = (point, pointsMap) ->
-    connectedPoints = []
-    stack = []
-    visitedMap = {}
+    for edge in graph
+        for node in edge
+            findNewCycle([node])
 
-    stack.push point
-    visitedMap[point] = true
-
-    [y, x] = point
-    n = pointsMap[y][x]
-
-    while stack.length
-        [current_y, current_x] = stack.pop()
-        connectedPoints.push [current_y, current_x]
-        neighbors = findNeighborsWithN(n, [current_y, current_x], pointsMap)
-        for neighbor in neighbors when neighbor not of visitedMap
-            stack.push neighbor
-            visitedMap[neighbor] = true
-
-    connectedPoints
+    cycles
 
 
 getConnectedPointsGraph = (y, x, points) ->
@@ -73,7 +68,8 @@ getConnectedPointsGraph = (y, x, points) ->
                 stack.push neighbor
                 visitedMap[neighbor] = true
             neighborIdx = getPointIdx neighbor[0], neighbor[1], rows_count
-            connectedPointsGraph[point_idx][neighborIdx] = null
+            if neighborIdx != point_idx
+                connectedPointsGraph[point_idx][neighborIdx] = null
 
     connectedPointsGraph
 
@@ -84,6 +80,22 @@ findNeighborsWithN = (n, [y, x], pointsMap) ->
     .filter(([y, x]) -> pointsMap[y]?[x] is n)
 
 
+removeNeighborsCycles = (graph) ->
+    result_graph = {}
+    for point, neighbors of graph
+
+        unless point of result_graph
+            result_graph[point] = {}
+
+        for neighbor of neighbors
+            if point not of (result_graph[neighbor] or {})
+                result_graph[point][neighbor] = null
+            else if not neighbor of result_graph
+                result_graph[neighbor] = {}
+
+    result_graph
+
+
 module.exports = {
-    getCycles, getConnectedPoints, findNeighborsWithN,
-    getConnectedPointsGraph}
+    getCycles, findNeighborsWithN,
+    getConnectedPointsGraph, removeNeighborsCycles}
