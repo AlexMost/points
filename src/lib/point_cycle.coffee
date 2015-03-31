@@ -2,8 +2,12 @@
 l = require 'lodash'
 {getPointIdx} = require './point'
 
-
+###
+Algorythm idea is taken from here:
+http://stackoverflow.com/questions/12367801/finding-all-cycles-in-undirected-graphs
+###
 getCycles = (graph) ->
+
     cycles = []
     addedCycles = {}
 
@@ -45,7 +49,7 @@ getCycles = (graph) ->
 
 
 getConnectedPointsGraph = (y, x, points) ->
-    connectedPointsGraph = {}
+    connectedPointsGraph = []
     stack = []
     visitedMap = {}
     rows_count = l.size points
@@ -59,8 +63,6 @@ getConnectedPointsGraph = (y, x, points) ->
         [current_y, current_x] = stack.pop()
 
         point_idx = getPointIdx current_y, current_x, rows_count
-        connectedPointsGraph[point_idx] = {}
-
         neighbors = findNeighborsWithN(n, [current_y, current_x], points)
 
         for neighbor in neighbors
@@ -69,7 +71,7 @@ getConnectedPointsGraph = (y, x, points) ->
                 visitedMap[neighbor] = true
             neighborIdx = getPointIdx neighbor[0], neighbor[1], rows_count
             if neighborIdx != point_idx
-                connectedPointsGraph[point_idx][neighborIdx] = null
+                connectedPointsGraph.push [point_idx, neighborIdx]
 
     connectedPointsGraph
 
@@ -81,17 +83,13 @@ findNeighborsWithN = (n, [y, x], pointsMap) ->
 
 
 removeNeighborsCycles = (graph) ->
-    result_graph = {}
-    for point, neighbors of graph
-
-        unless point of result_graph
-            result_graph[point] = {}
-
-        for neighbor of neighbors
-            if point not of (result_graph[neighbor] or {})
-                result_graph[point][neighbor] = null
-            else if not neighbor of result_graph
-                result_graph[neighbor] = {}
+    result_graph = []
+    result_graph_map = {}
+    for edge in graph
+        edge_hash = edge.sort().toString()
+        if edge_hash not of result_graph_map
+            result_graph.push edge
+            result_graph_map[edge_hash] = null
 
     result_graph
 
