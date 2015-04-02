@@ -4,7 +4,8 @@ l = require 'lodash'
 
 ###
 Algorythm idea is taken from here:
-http://stackoverflow.com/questions/12367801/finding-all-cycles-in-undirected-graphs
+http://stackoverf
+low.com/questions/12367801/finding-all-cycles-in-undirected-graphs
 ###
 getCycles = (graph) ->
 
@@ -73,7 +74,7 @@ getConnectedPointsGraph = (y, x, points) ->
             if neighborIdx != point_idx
                 connectedPointsGraph.push [point_idx, neighborIdx]
 
-    connectedPointsGraph
+    removeNeighborsCycles(connectedPointsGraph)
 
 
 findNeighborsWithN = (n, [y, x], pointsMap) ->
