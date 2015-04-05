@@ -12,9 +12,12 @@ Rx = require 'rx'
 Map = Immutable.Map
 DEFAULT_WIDTH = 20
 DEFAULT_HEIGHT = 20
+get_uuid = require 'node-uuid'
 
 
 createGame = (initialData) ->
+    uuid = get_uuid.v1()
+
     eventStream = new Rx.Subject
 
     initialData or= {}
@@ -49,6 +52,8 @@ createGame = (initialData) ->
 
     connectPlayer: (player) ->
         eventStream.onNext {action: "connectPlayer", player, gameState}
+
+    getId: -> uuid
 
 
 module.exports = {createGame, initPointsMap}

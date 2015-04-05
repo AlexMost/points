@@ -8,10 +8,7 @@ var Html = React.createClass({
           <title>{this.props.props.title}</title>
           <link rel='stylesheet' type='text/css' href='/stylesheets/style.css' />
         </head>
-        <body>
-            <div id='view' dangerouslySetInnerHTML={{__html: this.props.body}} />
-            <script type='application/json' dangerouslySetInnerHTML={{__html: JSON.stringify(this.props.props)}} />
-            <script src='/javascripts/bundle.js' />
+        <body dangerouslySetInnerHTML={{__html: this.props.body}}>
         </body>
       </html>
     );

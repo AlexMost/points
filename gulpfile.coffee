@@ -8,12 +8,14 @@ nodeunit = require  'gulp-nodeunit'
 nodemon = require 'nodemon'
 filter = require 'gulp-filter'
 react = require 'gulp-react'
+browserify = require 'gulp-browserify'
+
 
 SRC_PATH = './src/**/*.*'
 SRC_TEST_PATH = './test/**/*.coffee'
 
-
-gulp.task 'default', ->
+# ============== backend ==================
+gulp.task 'build_backend', ->
     coffee_filter = filter "**/*.coffee"
 
     gulp.src(SRC_PATH)
@@ -39,6 +41,15 @@ gulp.task 'serve', ['watch'], ->
         ext: 'js'
     )
 
+# ============== frontend ==================
+gulp.task 'build_frontend', ['build_backend'], ->
+    gulp.src("./build/frontend/*.js")
+        .pipe(browserify())
+        .pipe(gulp.dest('./build/static/js'))
+
+# ============= common =====================
+
+gulp.task 'default', ["build_backend", "build_frontend"]
 
 gulp.task 'watch', ['default'], ->
     gulp.watch SRC_PATH, ['default']
