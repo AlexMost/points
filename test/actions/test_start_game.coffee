@@ -1,9 +1,9 @@
 "use strict"
 
 Rx = require 'rx'
-{createGame} = require '../../src/game'
-{startGame} = require '../../src/actions/start_game'
-{GAME_CYCLE} = require '../../src/lib/game_state'
+{createGame} = require '../../src/engine/game'
+{startGame} = require '../../src/engine/actions/start_game'
+{GAME_CYCLE} = require '../../src/engine/lib/game_state'
 
 
 exports.test_start_game = (test) ->

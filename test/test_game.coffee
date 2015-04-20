@@ -1,8 +1,8 @@
 "use strict"
 
-{createGame} = require '../src/game'
-{isFreePoint} = require '../src/lib/point'
-{POINT_STATE, GAME_CYCLE, PLAYER} = require '../src/lib/game_state'
+{createGame} = require '../src/engine/game'
+{isFreePoint} = require '../src/engine/lib/point'
+{POINT_STATE, GAME_CYCLE, PLAYER} = require '../src/engine/lib/game_state'
 
 
 exports.test_should_create_game = (test) ->

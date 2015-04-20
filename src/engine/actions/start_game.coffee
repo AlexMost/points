@@ -1,3 +1,5 @@
+"use strict"
+
 Rx = require 'rx'
 {GAME_CYCLE} = require "../lib/game_state"
 

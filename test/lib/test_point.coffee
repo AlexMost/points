@@ -2,10 +2,10 @@
 
 {initPointsMap, addPoint, isValidPointRange, isValidPlayer
 isFreePoint, getPointIdx,
-getPointsCoordinates} = require '../../src/lib/point'
-{createGame} = require '../../src/game'
+getPointsCoordinates} = require '../../src/engine/lib/point'
+{createGame} = require '../../src/engine/game'
 {POINT_STATE, GAME_CYCLE, POINT_STATE,
-PLAYER} = require '../../src/lib/game_state'
+PLAYER} = require '../../src/engine/lib/game_state'
 l = require 'lodash'
 
 

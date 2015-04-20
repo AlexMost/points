@@ -1,7 +1,7 @@
 Rx = require 'rx'
-{connectPlayer} = require '../../src/actions/connect_player'
-{createGame} = require '../../src/game'
-{PLAYER} = require '../../src/lib/game_state'
+{connectPlayer} = require '../../src/engine/actions/connect_player'
+{createGame} = require '../../src/engine/game'
+{PLAYER} = require '../../src/engine/lib/game_state'
 
 
 exports.test_connect_player1 = (test) ->

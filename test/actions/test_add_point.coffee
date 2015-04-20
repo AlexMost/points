@@ -1,9 +1,9 @@
 "use strict"
 
-{createGame} = require '../../src/game'
-{addPointAction} = require '../../src/actions/add_point'
-{addPoint} = require '../../src/lib/point'
-{POINT_STATE, PLAYER, GAME_CYCLE} = require '../../src/lib/game_state'
+{createGame} = require '../../src/engine/game'
+{addPointAction} = require '../../src/engine/actions/add_point'
+{addPoint} = require '../../src/engine/lib/point'
+{POINT_STATE, PLAYER, GAME_CYCLE} = require '../../src/engine/lib/game_state'
 {assertRxActions} = require '../../src/rx_test_util'
 
 

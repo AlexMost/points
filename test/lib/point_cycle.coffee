@@ -4,7 +4,7 @@ l = require 'lodash'
 {
 makeGraph, getCycles, findNeighborsWithN,
 getConnectedPointsGraph, removeNeighborsCycles
-} = require '../../src/lib/point_cycle'
+} = require '../../src/engine/lib/point_cycle'
 
 
 exports.test_find_neighbors_with_n = (test) ->
