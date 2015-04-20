@@ -2,17 +2,17 @@
 
 Immutable = require 'immutable'
 Rx = require 'rx'
+get_uuid = require 'node-uuid'
+
 {GameState, GAME_CYCLE} = require './lib/game_state'
 {initPointsMap} = require './lib/point'
 {addPointAction} = require './actions/add_point'
 {startGame} = require './actions/start_game'
 {connectPlayer} = require './actions/connect_player'
 
-
 Map = Immutable.Map
 DEFAULT_WIDTH = 20
 DEFAULT_HEIGHT = 20
-get_uuid = require 'node-uuid'
 
 
 createGame = (initialData) ->
@@ -42,6 +42,7 @@ createGame = (initialData) ->
         gameState = gameState.merge newGameState)
 
     getUpdateStream: -> updateStream
+    
     getGameState: -> gameState
 
     addPoint: (x, y, player) ->
