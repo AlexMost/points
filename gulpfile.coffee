@@ -17,6 +17,7 @@ SRC_TEST_PATH = './test/**/*.coffee'
 # ============== backend ==================
 gulp.task 'build_backend', ->
     coffee_filter = filter "**/*.coffee"
+    jsx_filter = filter "**/*.jsx"
 
     gulp.src(SRC_PATH)
         .pipe(coffee_filter)
@@ -24,6 +25,9 @@ gulp.task 'build_backend', ->
         .pipe(coffeelint.reporter())
         .pipe(coffee({bare: true}).on('error', gutil.log))
         .pipe(coffee_filter.restore())
+        .pipe(jsx_filter)
+        .pipe(react())
+        .pipe(jsx_filter.restore())
         .pipe(gulp.dest('./build'))
 
 
@@ -43,7 +47,7 @@ gulp.task 'serve', ['watch'], ->
 
 # ============== frontend ==================
 gulp.task 'build_frontend', ['build_backend'], ->
-    gulp.src("./build/frontend/*.js")
+    gulp.src("./build/frontend/*.js")   
         .pipe(browserify())
         .pipe(gulp.dest('./build/static/js'))
 

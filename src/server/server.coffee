@@ -7,6 +7,9 @@ socket_io = require 'socket.io'
 session = require 'express-session'
 Rx = require 'rx'
 Dispatcher = require './dispatcher'
+WelcomePage = require '../components/welcome_page'
+MainStage = require '../components/main_stage'
+{reactRender} = require './react_render'
 
 app = express()
 
@@ -16,7 +19,7 @@ gameDispatcher = new Dispatcher gameActionBus
 # template engine
 app.set('view engine', 'jsx')
 app.set('views', path.resolve(__dirname, '../components'))
-app.engine('jsx', ReactEngine({wrapper: 'layout.jsx'}))
+app.set 'view engine', 'ejs'
 
 # static folder settings
 app.use(express.static(path.resolve __dirname, '../static'))
@@ -28,10 +31,15 @@ app.use(sessionMiddleware)
 
 # simple http routes
 app.get('/', (req, res) ->
-    res.render('welcome_page', {
-        name: "points",
-        title: "points main stage"
-    })
+    reactRender(
+        res
+        WelcomePage
+        {}
+        {
+            title: "points create game page"
+            initScript: "/js/welcome_page.js"
+        }
+    )
 )
 
 app.get('/create_game', (req, res) ->
@@ -49,9 +57,17 @@ app.get('/join_game/:gameId', (req, res) ->
 app.get('/game/:gameId', (req, res) ->
     gameId = req.params.gameId
 
-    res.render(
-        "main_stage"
-        gameState: gameId
+    reactRender(
+        res
+        MainStage
+        {
+            gameState: gameDispatcher.getGameState(gameId).toJS()
+            name: "new www"
+        }
+        {
+            title: "points game"
+            initScript: "/js/main_stage.js"   
+        }
     )
 )
 
@@ -75,7 +91,6 @@ io.on('connection', (socket) ->
     console.log "IO connection", socketId
 
     socket.on('message', ({game, message}) ->
-        game or= game # init game id on first message
         gameActionBus.onNext {
             from: socketId, game: gameId, message}
     )

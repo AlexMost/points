@@ -11,6 +11,9 @@ class Dispatcher
         @games[gameId] = newGame
         gameId
 
+    getGameState: (gameId) ->
+        @games[gameId].getGameState()
+
     joinClient: (gameId, playerId) ->
         game = @games[gameId]
 
